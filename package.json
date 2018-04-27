@@ -1,0 +1,15 @@
+{
+  "name": "express-context-store",
+  "version": "0.1.0",
+  "description": "Store data related to current request without polluting request object",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": ["express", "request", "context", "storage", "data"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
+}
