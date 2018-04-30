@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res, next) => {
   const value = req.context.get('key');
   res.send(value);
-})
+});
 ```
 
 ## Serialization
@@ -40,7 +40,7 @@ You can convert context store to plain javascript object by calling `.toObject` 
 app.use((req, res, next) => {
   const context = req.context.toObject();
   JSONLogger.log(context);
-})
+});
 ```
 
 ## License

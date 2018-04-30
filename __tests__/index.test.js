@@ -30,7 +30,8 @@ test('throw error if context is written multiple times', () => {
   middleware(req, res, next);
 
   req.context.set('key', 'value');
-  expect(() => req.context.set('key', 'another')).toThrow('key already exist in req.context');
+  const fn = () => req.context.set('key', 'another');
+  expect(fn).toThrow('key already exist in req.context');
 });
 
 test('allow key to be written multiple times explicitly', () => {
@@ -59,7 +60,8 @@ test('require writable option to be provided for multiple write', () => {
 
   req.context.set('key', 'value', { writable: true });
   req.context.set('key', 'another');
-  expect(() => req.context.set('key', 'different', { writable: true })).toThrow('key already exist in req.context');
+  const fn = () => req.context.set('key', 'different', { writable: true });
+  expect(fn).toThrow('key already exist in req.context');
 });
 
 test('provides toObject method for serialization', () => {

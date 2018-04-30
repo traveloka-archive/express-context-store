@@ -13,9 +13,12 @@ module.exports = function createContextStore() {
           };
         case 'set':
           return (key, value, opts) => {
-            const options = Object.assign({
-              writable: false,
-            }, opts);
+            const options = Object.assign(
+              {
+                writable: false,
+              },
+              opts
+            );
             const existingValue = contextStore.get(key);
             if (existingValue && existingValue.readOnly) {
               throw new Error(`${key} already exist in req.context`);
@@ -24,7 +27,12 @@ module.exports = function createContextStore() {
             contextStore.set(key, { value, readOnly: !options.writable });
           };
         case 'toObject':
-          return () => Array.from(contextStore.entries()).reduce((result, [key, value]) => Object.assign(result, { [key]: value.value }), {});
+          return () =>
+            Array.from(contextStore.entries()).reduce(
+              (result, [key, value]) =>
+                Object.assign(result, { [key]: value.value }),
+              {}
+            );
         default:
           return obj[prop];
       }

@@ -4,12 +4,31 @@
   "description": "Store data related to current request without polluting request object",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "precommit": "lint-staged",
+    "fmt": "prettier --write **/*.{js,md}"
   },
-  "keywords": ["express", "request", "context", "storage", "data"],
+  "keywords": [
+    "express",
+    "request",
+    "context",
+    "storage",
+    "data"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "jest": "^22.4.3"
+  },
+  "lint-staged": {
+    "*.{js,md}": [
+      "prettier --write",
+      "git add -A"
+    ]
+  },
+  "dependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.5",
+    "prettier": "^1.12.1"
   }
 }
