@@ -32,6 +32,17 @@ app.get('/', (req, res, next) => {
 })
 ```
 
+## Serialization
+
+You can convert context store to plain javascript object by calling `.toObject` method. This is useful where you want to log current request context using JSON logger.
+
+```js
+app.use((req, res, next) => {
+  const context = req.context.toObject();
+  JSONLogger.log(context);
+})
+```
+
 ## License
 
 MIT

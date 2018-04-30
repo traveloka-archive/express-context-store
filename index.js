@@ -23,6 +23,8 @@ module.exports = function createContextStore() {
 
             contextStore.set(key, { value, readOnly: !options.writable });
           };
+        case 'toObject':
+          return () => Array.from(contextStore.entries()).reduce((result, [key, value]) => Object.assign(result, { [key]: value.value }), {});
         default:
           return obj[prop];
       }

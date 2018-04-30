@@ -61,3 +61,29 @@ test('require writable option to be provided for multiple write', () => {
   req.context.set('key', 'another');
   expect(() => req.context.set('key', 'different', { writable: true })).toThrow('key already exist in req.context');
 });
+
+test('provides toObject method for serialization', () => {
+  const req = {};
+  const res = {};
+  const next = jest.fn();
+  const middleware = createMiddleware();
+  middleware(req, res, next);
+
+  req.context.set('a', 'b');
+  req.context.set('c', { d: 'e' });
+  req.context.set('f', ['g', 'h']);
+  req.context.set('i', 1);
+  req.context.set('j', true);
+
+  const object = req.context.toObject();
+  const expectedObject = {
+    a: 'b',
+    c: {
+      d: 'e',
+    },
+    f: ['g', 'h'],
+    i: 1,
+    j: true,
+  };
+  expect(object).toEqual(expectedObject);
+});
