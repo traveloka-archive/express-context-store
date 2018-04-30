@@ -33,8 +33,10 @@ module.exports = function createContextStore() {
                 Object.assign(result, { [key]: value.value }),
               {}
             );
-        default:
-          return obj[prop];
+        default: {
+          const value = contextStore[prop];
+          return typeof value === 'function' ? value.bind(contextStore) : value;
+        }
       }
     },
   });

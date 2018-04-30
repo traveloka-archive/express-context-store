@@ -18,6 +18,7 @@ test('provide Map-like API in req.context', () => {
   const middleware = createMiddleware();
   middleware(req, res, next);
 
+  expect(req.context.get('key')).toBe(null);
   req.context.set('key', 'value');
   expect(req.context.get('key')).toBe('value');
 });
@@ -88,4 +89,24 @@ test('provides toObject method for serialization', () => {
     j: true,
   };
   expect(object).toEqual(expectedObject);
+});
+
+test('fallback to Map for unknown getter', () => {
+  const req = {};
+  const res = {};
+  const next = jest.fn();
+  const middleware = createMiddleware();
+  middleware(req, res, next);
+
+  req.context.set('key', 'value');
+  expect(req.context.size).toBe(1);
+  expect(req.context.has('key')).toBe(true);
+
+  // conversion to iterable
+  expect(Array.from(req.context.keys())).toMatchSnapshot('.keys()');
+  expect(Array.from(req.context.values())).toMatchSnapshot('.values()');
+  expect(Array.from(req.context.entries())).toMatchSnapshot('.entries()');
+
+  req.context.delete('key');
+  expect(req.context.size).toBe(0);
 });

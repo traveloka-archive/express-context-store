@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fallback to Map for unknown getter: .entries() 1`] = `
+Array [
+  Array [
+    "key",
+    Object {
+      "readOnly": true,
+      "value": "value",
+    },
+  ],
+]
+`;
+
+exports[`fallback to Map for unknown getter: .keys() 1`] = `
+Array [
+  "key",
+]
+`;
+
+exports[`fallback to Map for unknown getter: .values() 1`] = `
+Array [
+  Object {
+    "readOnly": true,
+    "value": "value",
+  },
+]
+`;
