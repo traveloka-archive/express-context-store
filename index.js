@@ -1,4 +1,5 @@
-module.exports = function createContextStore() {
+module.exports = function createContextStore(opts) {
+  const options = Object.assign({ property: 'context' }, opts);
   const contextStore = new Map();
   const context = new Proxy(contextStore, {
     get(obj, prop) {
@@ -42,7 +43,7 @@ module.exports = function createContextStore() {
   });
 
   return (req, res, next) => {
-    Object.defineProperty(req, 'context', {
+    Object.defineProperty(req, options.property, {
       value: context,
       writable: false,
       enumerable: false,

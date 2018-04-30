@@ -110,3 +110,16 @@ test('fallback to Map for unknown getter', () => {
   req.context.delete('key');
   expect(req.context.size).toBe(0);
 });
+
+test('custom property name', () => {
+  const req = {};
+  const res = {};
+  const next = jest.fn();
+  const middleware = createMiddleware({ property: 'data' });
+  middleware(req, res, next);
+
+  expect(req.context).not.toBeDefined();
+
+  req.data.set('key', 'value');
+  expect(req.data.get('key')).toBe('value');
+});
