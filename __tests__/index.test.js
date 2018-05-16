@@ -1,11 +1,12 @@
 /* eslint-env jest */
 const createMiddleware = require('../');
 
+const middleware = createMiddleware();
+
 test('call next inside middleware', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   expect(next).toHaveBeenCalledTimes(1);
@@ -15,7 +16,6 @@ test('provide Map-like API in req.context', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   expect(req.context.get('key')).toBe(null);
@@ -27,7 +27,6 @@ test('throw error if context is written multiple times', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   req.context.set('key', 'value');
@@ -39,7 +38,6 @@ test('allow key to be written multiple times explicitly', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   req.context.set('key', 'value', { writable: true });
@@ -56,7 +54,6 @@ test('require writable option to be provided for multiple write', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   req.context.set('key', 'value', { writable: true });
@@ -69,7 +66,6 @@ test('provides toObject method for serialization', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   req.context.set('a', 'b');
@@ -95,7 +91,6 @@ test('fallback to Map for unknown getter', () => {
   const req = {};
   const res = {};
   const next = jest.fn();
-  const middleware = createMiddleware();
   middleware(req, res, next);
 
   req.context.set('key', 'value');

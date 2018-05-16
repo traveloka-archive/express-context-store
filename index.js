@@ -1,7 +1,6 @@
-module.exports = function createContextStore(opts) {
-  const options = Object.assign({ property: 'context' }, opts);
+function createContext() {
   const contextStore = new Map();
-  const context = new Proxy(contextStore, {
+  return new Proxy(contextStore, {
     get(obj, prop) {
       switch (prop) {
         case 'get':
@@ -41,10 +40,14 @@ module.exports = function createContextStore(opts) {
       }
     },
   });
+}
+
+module.exports = function createContextStore(opts) {
+  const options = Object.assign({ property: 'context' }, opts);
 
   return (req, res, next) => {
     Object.defineProperty(req, options.property, {
-      value: context,
+      value: createContext(),
       writable: false,
       enumerable: false,
     });
