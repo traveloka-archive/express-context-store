@@ -1,6 +1,6 @@
 {
   "name": "express-context-store",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Store data related to current request without polluting request object",
   "main": "index.js",
   "scripts": {
